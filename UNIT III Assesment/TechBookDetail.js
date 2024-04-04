@@ -1,7 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
+import Button from './Button';
 
-const TechBookDetail = ({ name, author, publisher, urll, image }) => {
+const TechBookDetail = ({ name, author, publisher, url, image }) => {
+  const openBrowser = () => {
+    Linking.openURL(url).catch((err) => console.error('An error occurred', err));
+  };
+
   return (
     <View style={styles.card}>
       <Image source={{ uri: image }} style={styles.image} />
@@ -9,6 +14,7 @@ const TechBookDetail = ({ name, author, publisher, urll, image }) => {
         <Text style={styles.title}>{name}</Text>
         <Text style={styles.author}>Author: {author}</Text>
         <Text style={styles.publisher}>Publisher: {publisher}</Text>
+        <Button onPress={openBrowser} title="Read More" />
       </View>
     </View>
   );
@@ -45,6 +51,7 @@ const styles = StyleSheet.create({
   publisher: {
     fontSize: 14,
     color: '#555',
+    marginBottom: 8,
   },
 });
 
